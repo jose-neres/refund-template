@@ -1,4 +1,8 @@
+
+const form = document.querySelector("form")
 const amount = document.getElementById ("amount")
+const expense = document.getElementById ("expense")
+const category = document.getElementById ("category")
 
 
 document.oninput = () => {
@@ -18,4 +22,31 @@ function formatCurrencyBRL (value){
   })
   
   return value //Retorna o valor formatado
+}
+
+
+form.onsubmit = (event) => {
+  // Previne o comportamento de carregamento da página
+  event.preventDefault()
+
+// Criando um objeto com todas informações das despesas
+  const newExpense = {
+    id: new Date().getTime(),
+    expense: expense.value,
+    category_id: category.value,
+    category_name: category.options[category.selectedIndex].text,
+    amount: amount.value,
+    created_at: new Date(),
+  }
+  console.log(newExpense)
+
+expenseAdd(newExpense)
+}
+
+function expenseAdd(newExpense){
+  try {
+
+  }catch (error) {
+    alert("Não foi possível atualizar a lista de despesas.")
+  }
 }
