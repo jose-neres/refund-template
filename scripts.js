@@ -6,7 +6,7 @@ const category = document.getElementById("category")
 
 //Separa os elementos da lista
 const expenseList = document.querySelector("ul")
-const expesesTotal = document.querySelector("aside header h2")
+const expensesTotal = document.querySelector("aside header h2")
 const expensesQuantity = document.querySelector("aside header p span")
 
 document.oninput = () => {
@@ -114,7 +114,7 @@ function updateTotals() {
 
       // converte os caracteres não númericos para número
 
-      let value = itemAmount.textContent.replace(/\D/g, "").replace(",", ".")
+      let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
 
       //converte o valor para float
       value = parseFloat(value)
@@ -127,7 +127,21 @@ function updateTotals() {
       total+= Number(value)
     }
 
-  
+  //Cria a span para adicionar o R$ formatado
+  const symbolBRL = document.createElement("small")
+  symbolBRL.textContent = "R$"
+
+  //Formata o valor e remove o R$ que será exibido pela small customizada
+  total = formatCurrencyBRL(total).toUpperCase().replace("R$", "")
+
+  // Limpa o conteudo do elemento
+  expensesTotal.innerHTML = ""
+
+  // Adiciona o simbolo e o valor da moeda formatado
+  expensesTotal.append(symbolBRL, total)
+
+
+
 
 
   } catch (error) {
@@ -136,3 +150,21 @@ function updateTotals() {
 
   }
 }
+
+// Captura o evento de clique nos itens da lista
+
+expenseList.addEventListener("click", function(event) {
+if (event.target.classList.contains("remove-icon")){
+  
+  //obtém a li pai do elemento clicado
+  const item = event.target.closest(".expense")
+
+  //Remove o item
+  item.remove()
+}
+
+updateTotals()
+
+})
+
+
