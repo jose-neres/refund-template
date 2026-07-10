@@ -90,6 +90,9 @@ function expenseAdd(newExpense) {
     //Adiciona o item na lista
     expenseList.append(expenseItem)
 
+    //Limpa o formulario para adicionar nova despesa
+    formClear()
+
     //Chamando a função updateTotals
     updateTotals()
 
@@ -167,4 +170,14 @@ updateTotals()
 
 })
 
+function formClear(){
+
+  // Limpa os inputs
+  expense.value = ""
+  category.value = ""
+  amount.value = ""
+
+  //Coloca o input amount em foco
+  expense.focus() 
+}
 
